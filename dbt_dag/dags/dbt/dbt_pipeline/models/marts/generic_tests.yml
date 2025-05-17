@@ -1,0 +1,22 @@
+models:
+  - name: fct_orders
+    columns:
+      - name: order_key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('order_items')
+              field: order_key
+              severity: warn
+      - name: order_date
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dates')
+              field: date
+              severity: warn
+      - name: status_code
+        tests:
+          - accepted_values:
+              values: ['P', 'O', 'F']
